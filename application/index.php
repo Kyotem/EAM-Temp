@@ -1,3 +1,12 @@
+<?php
+
+echo xdebug_info();
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,5 +16,7 @@
 </head>
 <body>
     <p>hey</p>
+    <p>heyo</p>
+
 </body>
 </html>
