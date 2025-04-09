@@ -1,6 +1,8 @@
 <?php
 
+// echo xdebug_info();
 echo xdebug_info();
+echo phpinfo();
 
 
 ?>

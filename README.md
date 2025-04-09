@@ -1,6 +1,6 @@
 // TODO: Logo vernieuwen
 
-[//]: # (![Logo]&#40;https://i.imgur.com/Qqnbxtm.png&#41;)
+[//]: # (![Logo]&#40;EMBEDLINK;)
 
 
 ## Gebruikt door
@@ -10,13 +10,13 @@ Dit project wordt op dit moment gebruikt door de volgende bedrijven:
 ---
 
 # HAN GreenOfficeCRM
-// TODO: Vereisten Updaten (Incl PHP + CSS Framework & other deps)
 
-![Docker](https://img.shields.io/badge/Docker-27.1.1-pink)
+![Docker](https://img.shields.io/badge/Docker-27.1.1-041e5b)
+![Xdebug](https://img.shields.io/badge/Xdebug-3.4.2-bbde94)
+![PHP](https://img.shields.io/badge/PHP-8.1.13-9999cc)
 
-// TODO: Is Node used for this case?
+// TODO: Frontend Framework
 
-![Node.js](https://img.shields.io/badge/Node.js-v18-orange)
 
 
 // TODO: CI PIPELINE TOEVOEGEN VOOR PHP
@@ -75,13 +75,16 @@ Dit commando bouwt en start de containers volgens de configuratie in `docker-com
 
 Docker maakt en start containers voor:
 
-- **MSSQL Database**
+- MSSQL Database
+- PHP Webserver _(+ Xdebug)_
 
 Na het initialiseren worden de volgende services beschikbaar:
 
-| **Service**     | **URL**                                          |
-|-----------------|--------------------------------------------------|
-| MSSQL Database  | localhost:1434                                   |
+| **Service**    | **URL**        |
+|----------------|----------------|
+| MSSQL Database | localhost:1434 |
+| PHP Webserver  | localhost:8080 |
+| Xdebug         | localhost:9003 |
 
 
 ### Verbinden met SQL Server
@@ -94,10 +97,26 @@ Gebruik de volgende inloggegevens:
 - **Server Name:** `localhost,1434`
 - **Authentication:** SQL Server Authentication
 - **Login:** `SA`
-- **Wachtwoord:** `GreatestDev!123`
+- **Wachtwoord:** `abc123!@#`
 - **Connectieverificatie:** Trust server certificate
 
 De standaard SQL Server gebruikersnamen & wachtwoorden staan in het `dev.env`-bestand (In de root directory). Deze kan aangepast worden om de inloggegevens aan te passen. Dit kan niet direct geïmplementeerd worden in een productiemomgeving.
+
+### Xdebug gebruiken
+
+Voor het debuggen van PHP wordt Xdebug gebruikt.
+In dit onderdeel wordt uitgelegd hoe je hier gebruik kan maken in Visual Studio Code en PHPStorm
+
+**Visual Studio Code**
+
+NODIG:
+- PHPDebug van XDebug
+- Launch params
+
+**PHPStorm**
+
+// TODO: Vstleggen
+
 
 # Auteurs
 
