@@ -1,0 +1,40 @@
+FROM php:8.1-cli-alpine3.15
+
+# Temp workdir for setting up php
+WORKDIR /tmp/
+
+# Install dependencies
+RUN apk update
+RUN apk add --no-cache php8 php8-dev php8-pear php8-pdo php8-openssl
+RUN apk add --no-cache autoconf make g++ gnupg unixodbc-dev
+RUN apk add --no-cache linux-headers
+
+# Download SQL Server ODBC drivers & tools
+RUN curl -O https://download.microsoft.com/download/b/9/f/b9f3cce4-3925-46d4-9f46-da08869c6486/msodbcsql18_18.0.1.1-1_amd64.apk
+RUN curl -O https://download.microsoft.com/download/b/9/f/b9f3cce4-3925-46d4-9f46-da08869c6486/mssql-tools18_18.0.1.1-1_amd64.apk
+
+# Verify Signatures (Via GPG)
+RUN curl -O https://download.microsoft.com/download/b/9/f/b9f3cce4-3925-46d4-9f46-da08869c6486/msodbcsql18_18.0.1.1-1_amd64.sig
+RUN curl -O https://download.microsoft.com/download/b/9/f/b9f3cce4-3925-46d4-9f46-da08869c6486/mssql-tools18_18.0.1.1-1_amd64.sig
+RUN curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import -
+RUN gpg --verify msodbcsql18_18.0.1.1-1_amd64.sig msodbcsql18_18.0.1.1-1_amd64.apk
+RUN gpg --verify mssql-tools18_18.0.1.1-1_amd64.sig mssql-tools18_18.0.1.1-1_amd64.apk
+
+# Install ODBC drivers
+RUN yes | apk add --allow-untrusted msodbcsql18_18.0.1.1-1_amd64.apk
+RUN yes | apk add --allow-untrusted mssql-tools18_18.0.1.1-1_amd64.apk
+
+# Set PHP configuration (dev)
+RUN cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini
+RUN pecl config-set php_ini /usr/local/etc/php/php.ini
+
+# Install PHP extension for SQL Server
+RUN pecl install pdo_sqlsrv
+RUN docker-php-ext-enable pdo_sqlsrv
+
+# Install Xdebug for debugging
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
+
+# Copy over XDebug settings over to volume
+COPY "./docker-php-ext-xdebug.ini" "/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"

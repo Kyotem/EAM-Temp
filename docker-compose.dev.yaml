@@ -1,13 +1,11 @@
-# !! Environment variables are currently not applied, if there are any plans of implementation within Docker, talk to Finn.
-# This Docker Environment is set up WITHOUT persistent storage, if you want persistent storage, then Finn has an image for this available.
-  # For now it will just re-create the DB based on the scripts within database-scripts via entrypoint.sh
-# This build is not tuned correctly, please make sure not to put this image under too much load to avoid system instability!
+# ! THIS DOCKER ENVIRONMENT IS ONLY MEANT FOR DEVELOPMENT, NOT PRODUCTION !
 
-# ! THIS DOCKER ENVIRONMENT IS ONLY MEANT FOR DEVELOPMENT, NOT PRODUCTION!!!
-
-# I'm assuming the Web-Client that handles PHP Locally does not run via a docker script, in which case, it *should* work without issue.
+# Currently this Docker Environment does NOT use a persistent data volume for the Database
+# This build is not tuned correctly per resources, please make sure not to put this image under too much load to avoid system instability
 
 # If you encounter any issues running the services, make sure all shell scripts have LF line endings and not CLRF!!
+# Docker Env set up by Finn, if there are any problems, please contact me.
+
 services:
   # Database
   database:
@@ -23,6 +21,26 @@ services:
       - ./database/database-scripts:/var/opt/mssql/scripts
     networks:
       - sql_network
+  # PHP Webserver
+  webserver:
+    platform: "linux/amd64"
+    build:
+      context: ./webserver-setup
+      dockerfile: Dockerfile.dev
+    container_name: PHP-Webserver
+    env_file:
+      - dev.env
+    depends_on:
+      - database
+    ports:
+      - "8080:80"  # Expose port 8080 on the host, map to 80 in the container
+    volumes:
+      - ./application/:/application/  # App code
+      - ./webserver-setup/:/setup/
+    entrypoint: ["php", "-S", "0.0.0.0:80", "-t", "/application/"]  # Start PHP Webserver 
+    networks:
+      - sql_network
+
 
 networks:
   sql_network:
