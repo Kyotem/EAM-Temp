@@ -17,9 +17,12 @@ Dit project wordt op dit moment gebruikt door de volgende bedrijven:
 
 // TODO: Frontend Framework
 
+// TODO: CI-Pipeline op GitLab implementeren en badge in Readme.md vastleggen
+
+![CI-PHP](https://github.com/IMPL/actions/workflows/ci-php-syntax-check.yaml/badge.svg?branch=main)
 
 
-// TODO: CI PIPELINE TOEVOEGEN VOOR PHP
+
 
 
 // TODO: [HIER (KORTE) BESCHRIJVING VAN HET PRODUCT]
