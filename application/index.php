@@ -4,22 +4,7 @@
 echo xdebug_info();
 echo phpinfo();
 
-beeballs + set;
-echo(ss;a)' ' ' '
 
-
-beeballs + set;
-echo(ss;a)' ' ' '
-beeballs + set;
-echo(ss;a)' ' ' '
-beeballs + set;
-echo(ss;a)' ' ' '
-beeballs + set;
-echo(ss;a)' ' ' '
-beeballs + set;
-echo(ss;a)' ' ' '
-beeballs + set;
-echo(ss;a)' ' ' '
 
 ?>
 
