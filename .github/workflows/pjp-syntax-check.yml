@@ -19,7 +19,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1'  # Specify the PHP version you want to use
+          php-version: "8.1" # Specify the PHP version you want to use
 
       - name: Install dependencies
         run: |
@@ -30,9 +30,9 @@ jobs:
         id: check_syntax
         run: |
           # Check all PHP files and capture the output (including errors)
-          find ./application -name "*.php" -exec php -l {} \; > syntax_check_output.txt || true
+          find ./application -name "*.php" -exec php -l {} \; > syntax_check_output.txt 2>&1 || true
           # Fail the pipeline if there are syntax errors by checking if the output file is non-empty
-          if grep -q "PHP Parse error" syntax_check_output.txt; then
+          if grep -q "Parse error" syntax_check_output.txt; then
             echo "Syntax errors found. See the log below:"
             cat syntax_check_output.txt
             exit 1
