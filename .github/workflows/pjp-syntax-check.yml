@@ -42,7 +42,7 @@ jobs:
 
       - name: Upload syntax check output as an artifact
         if: always()  # Ensure this step runs even if previous steps fail
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: syntax-check-output
           path: syntax_check_output.txt
