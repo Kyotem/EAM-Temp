@@ -14,24 +14,25 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.1" # Specify the PHP version you want to use
+          php-version: "8.1" 
 
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y php-cli  # Install PHP CLI for syntax checking
+          sudo apt-get install -y php-cli
 
       - name: Check for PHP syntax errors
         id: check_syntax
         run: |
           # Check all PHP files and capture the output (including errors)
           find ./application -name "*.php" -exec php -l {} \; > syntax_check_output.txt 2>&1 || true
-          # Fail the pipeline if there are syntax errors by checking if the output file is non-empty
+
+          # Fail the pipeline if the output file is non-empty 
           if grep -q "Parse error" syntax_check_output.txt; then
             echo "Syntax errors found. See the log below:"
             cat syntax_check_output.txt
@@ -41,7 +42,7 @@ jobs:
           fi
 
       - name: Upload syntax check output as an artifact
-        if: always()  # Ensure this step runs even if previous steps fail
+        if: always()  # Ensures this step runs even if previous steps fail
         uses: actions/upload-artifact@v4
         with:
           name: syntax-check-output
