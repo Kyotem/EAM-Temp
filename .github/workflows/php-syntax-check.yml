@@ -1,4 +1,6 @@
 name: PHP Syntax Check
+# Simple pipeline set up for checking syntax errors inside of .php files.
+
 
 on:
   push:
